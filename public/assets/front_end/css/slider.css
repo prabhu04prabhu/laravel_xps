@@ -1,0 +1,44 @@
+#slick,.container{position:relative;height:400px;}.caption,.caption a{text-transform:uppercase}@font-face{font-family:slick;font-weight:400;font-style:normal;src:url(fonts/slick.eot);src:url(fonts/slick.eot?#iefix) format('embedded-opentype'),url(fonts/slick.woff) format('woff'),url(fonts/slick.ttf) format('truetype'),url(fonts/slick.svg#slick) format('svg')}#slick{height: 400px;
+    min-height: 300px;
+    max-height: 400px;
+    width: 100%;
+    background: url(../images/loading.svg) 50% 50% no-repeat;}.slick-dots{position:absolute;bottom:100px;left:0;right:0;width:100%;text-align:center;display:none;visibility:hidden}.slick-dots li{cursor:pointer;display:inline-block;width:10px;height:10px;border-radius:50%;padding:0;margin:0 3px;border:2px solid #fff;position:relative}.slick-dots li:last-child{border:2px solid #fff}.slick-dots li,.slick-dots li button{outline:0}.slick-dots li button{background:#fff;border:none;width:0;height:8px;padding:0;cursor:pointer;display:block;border-radius:50%;position:absolute;-webkit-transition:.3s;-moz-transition:.3s;-o-transition:.3s;transition:.3s}.slick-slide .img--holder{background-repeat:no-repeat;background-position:50% 50%;background-size:cover;background-color:#fff;overflow:hidden;position:relative;top:0;bottom:0;width:100%;height:100%;-webkit-transition:.3s;-moz-transition:.3s;-o-transition:.3s;transition:.3s;z-index:999}
+	
+	.caption{
+    visibility: visible;
+    position: absolute;
+    top: -50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+    animation-delay: 2s;
+    -webkit-transform: translateY(50%);
+    transform: translateY(50%);}.caption>div{display:table-cell;vertical-align:middle;}.caption a{color:#fff;background:#ed1c24;font-size:16px;font-weight:800;padding:16px 36px;display:inline-block;position:relative;text-transform:none;margin-top:15px;border-radius:30px;}.slide--has-caption .caption{visibility:visible!important;opacity:1;cursor:pointer;z-index:2;text-align:center;}.slick-slide .img--holder h2{font-size:46px;text-transform:none;color:#fff;margin:0;font-weight:700;transition-delay:2s;}
+
+.slick-slide .img--holder h3{font-size:20px;margin:0;color:#f9cf00;font-weight:400;transition-delay:2s;display:inline-block;}
+
+.slick-next,.slick-next:focus,.slick-next:hover,.slick-prev,.slick-prev:focus,.slick-prev:hover{color:transparent;outline:0}.slick-next,.slick-prev{font-size:0;line-height:0;position:absolute;top: 50%;display:block;padding:0;-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);transform:translate(0,-50%);cursor:pointer;border:none;z-index:9999}.slick-next:focus:before,.slick-next:hover:before,.slick-prev:focus:before,.slick-prev:hover:before{opacity:1}.slick-next:before,.slick-prev:before{font-family:slick;font-size:40px;line-height:1;opacity:.75;color:#000;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.slick-prev{left: 100px;background: url(../images/left-arrow.svg) center center no-repeat;   background-size: 70px;width: 70px;height: 70px;border-radius: 50%;}[dir=rtl] .slick-prev{right:30px}.slick-prev:before,[dir=rtl] .slick-prev:before{content:''}.slick-next{right:100px;background: url(../images/right-arrow.svg) center center no-repeat;background-size: 70px;width:70px;height:70px;border-radius: 50%;}[dir=rtl] .slick-next{left:30px}.slick-next:before{content:" "}[dir=rtl] .slick-next:before{content:''}@media only screen and (max-width:960px){.caption>div{}.slick-slide .img--holder h2{font-size:30px;line-height:32px}}@media only screen and (max-width:768px){.slick-slide .img--holder h2{font-size:20px;line-height:22px;margin:0}.caption{text-align:center;width:100%;left:0;right:0;padding:0 20px}.caption>div{background:0 0}.caption a{margin-left:0}} @media only screen and (max-width:480px){.slick-slide .img--holder h2{font-size:20px;line-height:32px}
+.caption a
+{
+    padding: 12px 26px;
+}
+.slick-next {
+    right: 10px;
+	background: rgba(54, 54, 54, 0.6) url(../images/right-arrow.svg) center center no-repeat;
+	background-size: 15px;
+    width: 30px;
+    height: 30px;
+}.slick-prev {
+    left: 10px;
+	background: rgba(54, 54, 54, 0.6) url(../images/left-arrow.svg) center center no-repeat;
+	background-size: 15px;
+    width: 30px;
+    height: 30px;
+}
+#slick,.container{height:250px;}
+#slick{height: 250px;
+}

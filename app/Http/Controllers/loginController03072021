@@ -1,0 +1,457 @@
+<?php
+
+namespace App\Http\Controllers;
+// namespace App\Payment;
+
+// use App\Paymnet\AWLMEAPI;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Hash;
+use DB;
+use Session;
+use Carbon\Carbon;
+
+
+class loginController extends BaseController
+{
+  use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function login_process(Request $request){ 
+        
+        $date = Carbon::now()->toDateTimeString();
+        $user = $request->input('user');
+        $first_name = $request->input('first_name');
+        $last_name = $request->input('last_name');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $address = $request->input('address');
+        $country = $request->input('country');  
+        $state = $request->input('state'); 
+        $city = $request->input('city');  
+        $pincode = $request->input('pincode'); 
+        $password = $request->input('password');
+        $gender = $request->input('gender');  
+        $comments = $request->input('comments');   
+
+        DB::table('users')->insert(['first_name' => $first_name,'last_name' => $last_name,'email' => $email,'phone' => $phone,'address' => $address,'country' => $country,'state' => $state,'city' => $city,'pincode' => $pincode,'password' => MD5($password),'gender' => $gender,'comments' => $comments,'type' => $user,'created_at' =>$date ]);
+              $smtp_db = DB::table('smtp')->get();
+
+        foreach($smtp_db as $items){
+          $host_detail = $items->host;
+          $user_name_detail = $items->user_name;
+          $password_detail = $items->password;
+          $smtp_secure_detail = $items->smtp_secure;
+          $port_details = $items->port;
+          $receiver_address = $items->receiver_address;
+        }
+//To user
+        $mail = new PHPMailer(true);
+        $mail->SMTPDebug = 0;                                       
+        $mail->isSMTP();                                            
+        $mail->Host       = $host_detail; 
+        $mail->SMTPAuth   = true;                                 
+        $mail->Username   =  $user_name_detail;                   
+        $mail->Password   = $password_detail;                             
+        $mail->SMTPSecure = $smtp_secure_detail;                                  
+        $mail->Port       = $port_details;                                   
+    
+       
+        // $mail->setFrom($receiver_address, 'Bookings Successfull');
+        $mail->setFrom($user_name_detail, 'Login Details');
+        $mail->addAddress($email); 
+        $mail->AddCC($receiver_address);    
+        $mail->isHTML(true);                                  
+        $mail->Subject = 'Xpsbatterystore - Login Details';
+        $mail->Body    = "<p>Dear ".$first_name." ".$last_name.", <br/> Thank you for Registering  Xps Batteries, Your Registration Successfully and Login details given below.</p>
+        <html><head><link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet'><style>table {border-collapse: collapse;width: 600px;font-family: 'PT Sans Narrow', sans-serif;color: #fff;font-weight: 300;font-size: 15px;}td, th {border: 1px solid #969696;text-align: left;padding: 8px;color:#000000;} th{background-color:#006f3b;text-align: center;color:#ffffff;text-transform:uppercase;font-size: 14px;}</style></head><body><table cellpadding='0' cellspacing='0'><tr><th colspan='2'>Login Details</th></tr><tr>";
+        $mail->Body    .= "<td>Username</td><td>".$email."</td></tr>
+        <tr><td>Password</td><td>" . $password . "</td></tr>";
+
+        $mail->Body    .= "</table><h3>Regards, <br> Xpsbatterystore Team</h3></body></html>";
+
+$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+  
+if(!$mail->Send()) {
+  echo 'Message could not be sent.';
+  echo 'Mailer Error: ' . $mail->ErrorInfo;
+  exit;
+}
+     // return view("front_end.testimonials");
+        ?>
+<script type="text/javascript">
+  alert("Registration Successfully");
+  window.location.href="login-and-register";
+</script>
+<?php
+}
+
+public function user_login_process(Request $request){
+  $email = $request->input('email');
+  $password = $request->input('password');
+
+$detail = DB::table('users')->where('email',$email)->where('password',md5($password))->where('type','user')->get();
+
+$count = DB::table('users')->where('email',$email)->where('password',md5($password))->where('type','user')->get()->count();
+
+if($count > 0){
+  foreach($detail as $value){
+        $id = $value->id;
+      }
+
+    Session::put('id',$id);
+    $value = (Session::get('pagename'));
+    if($value  ==1)
+      return redirect('checkout');
+    else
+      return redirect('personal-information');
+      Session::put('pagename',0);
+}
+else{
+?>
+<script type="text/javascript">
+ alert('Incorrect Username or Password Please try Again');
+  window.location.href='login-and-register';
+</script>
+<?php
+}
+
+}
+
+
+public function user_forgetpassword(Request $request){
+  $email = $request->input('email');
+
+$count = DB::table('users')->where('email',$email)->where('type','user')->get()->count();
+$detail = DB::table('users')->where('email',$email)->where('type','user')->get();
+
+if($count > 0){
+  foreach($detail as $value){
+    $smtp_db = DB::table('smtp')->get();
+$randompassword= rand(10000000,100000000);
+    foreach($smtp_db as $items){
+      $host_detail = $items->host;
+      $user_name_detail = $items->user_name;
+      $password_detail = $items->password;
+      $smtp_secure_detail = $items->smtp_secure;
+      $port_details = $items->port;
+      $receiver_address = $items->receiver_address;
+    }
+
+    DB::table('users')->where('email',$email)->update(['password' => md5($randompassword)]);
+
+//To user
+    $mail = new PHPMailer(true);
+    $mail->SMTPDebug = 0;                                       
+    $mail->isSMTP();                                            
+    $mail->Host       = $host_detail; 
+    $mail->SMTPAuth   = true;                                 
+    $mail->Username   =  $user_name_detail;                   
+    $mail->Password   = $password_detail;                             
+    $mail->SMTPSecure = $smtp_secure_detail;                                  
+    $mail->Port       = $port_details;                                   
+
+    $mail->setFrom($user_name_detail, 'Login Details');
+    $mail->addAddress($email); 
+    $mail->AddCC($receiver_address);    
+    $mail->isHTML(true);                                  
+    $mail->Subject = 'Xpsbatterystore - Login Details';
+    $mail->Body    = "<p>Dear ".$value->first_name." ".$value->last_name.", <br/> Your password is given below.</p>
+    <html><head><link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet'><style>table {border-collapse: collapse;width: 600px;font-family: 'PT Sans Narrow', sans-serif;color: #fff;font-weight: 300;font-size: 15px;}td, th {border: 1px solid #969696;text-align: left;padding: 8px;color:#000000;} th{background-color:#006f3b;text-align: center;color:#ffffff;text-transform:uppercase;font-size: 14px;}</style></head><body><table cellpadding='0' cellspacing='0'><tr><th colspan='2'>Login Details</th></tr><tr>";
+    $mail->Body    .= "<td>Username</td><td>".$email."</td></tr>
+    <tr><td>Password</td><td>" . $randompassword . "</td></tr>";
+
+    $mail->Body    .= "</table><h3>Regards, <br> Xpsbatterystore Team</h3></body></html>";
+
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    if(!$mail->Send()) {
+    echo 'Message could not be sent.';
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+    exit;
+    }
+      }
+      return redirect('send_password');
+}
+else{
+?>
+<script type="text/javascript">
+ alert('Incorrect Email ID. Please try again');
+  window.location.href='login-and-register';
+</script>
+<?php
+}
+
+}
+
+public function logout(Request $request){
+  $request->session()->flush();
+    return redirect('login-and-register');
+
+ }
+
+  public function update_profile(Request $request){
+  $firstname = $request->input('firstname');
+  $lastname = $request->input('lastname');
+  $email = $request->input('email');
+  $phone = $request->input('phone');
+  $country = $request->input('country');
+  $state = $request->input('state');
+  $city = $request->input('city');
+  $pincode = $request->input('pincode');
+  $gender = $request->input('gender');
+  $address = $request->input('address');
+
+
+  DB::table('users')->where('id',Session::get('id'))->update([
+    'first_name' => $firstname,
+    'last_name' => $lastname,
+    'email' => $email,
+    'phone' => $phone,
+    'country' => $country,
+    'state' => $state,
+    'city' => $city,
+    'pincode' => $pincode,
+    'gender' => $gender,
+    'address' => $address
+  ]);
+     return redirect('personal-information')->with('success', 'Profile Updated Successfully');
+ }
+
+ public function change_password(Request $request){
+  $old_password = $request->input('old_password');
+  $new_password = $request->input('new_password');
+  $userid = $request->input('userid');
+  $confirm_password = $request->input('confirm_password');
+
+
+   $old_count = DB::table('users')
+   ->where('password',md5($old_password))
+   ->where('id',Session::get('id'))
+   ->get()
+   ->count();
+
+    if($old_count <= 0){
+       return redirect()->back()->withErrors(['old_password' => 'Old Password Missmatch']);
+    }
+
+    $this->validate($request, [
+     
+    'new_password' => 'required_with:confirm_password|same:confirm_password',
+
+    ]);
+
+    DB::table('users')
+    ->where('password',md5($old_password))
+    ->where('id',Session::get('id'))->update(['password' => md5($new_password)]);
+
+ //DB::table('users')->where('password',$old_password)->where('id',Session::get('id'))->update(['password' => md5($password)]);
+//  DB::table('users')->where('id',$userid)->update(['password' => md5($new_password)]);
+
+// echo md5($password);
+
+    return redirect()->back()->with('success', 'Password changed Successfully');
+ 
+
+}
+
+public function address_process(Request $request){
+  $userid = $request->input('userid');
+  $name = $request->input("name");
+  $phone = $request->input("phone");
+  $pincode = $request->input("pincode");
+  $locality = $request->input("locality");
+  $address = $request->input("address");
+  $city = $request->input("city");
+  $landmark = $request->input("landmark");
+  $alt_number = $request->input("alt_number");
+  $created_at = Carbon::now()->toDateTimeString();
+  
+    DB::table('customer_address')->insert(['cus_id' => $userid,'name' => $name,'mobile' => $phone,'pincode' => $pincode, 'locality' => $locality, 'address' => $address, 'city' => $city, 'landmark' => $landmark, 'alternate_number' => $alt_number,'status' => 'Active','created_at' => $created_at]);
+    
+ return redirect()->back()->with('success', 'Created Address Successfully');
+
+}
+
+
+public function add_orderdetails(Request $request){
+  $cart = session()->get('cart');
+  $total = 0;
+  foreach($cart as $id => $details) {
+    $total += $details['price'] * $details['quantity'];
+  }
+
+  $userid = session()->get('id');
+  $name = $request->input("CustomerName");
+  $phone = $request->input("MobileNo");
+  $pincode = $request->input("Pincode");
+  $locality = $request->input("Locality");
+  $address = $request->input("Address");
+  $city = $request->input("City");
+  $landmark = $request->input("Landmark");
+  $alt_number = $request->input("AlternateNo");
+  $addressid = $request->input("addressid");
+  $created_at = Carbon::now()->toDateTimeString();
+  $order_at = Carbon::now()->toDateString();
+  
+  if (!$addressid)
+  DB::table('customer_address')->insert(['cus_id' => $userid,'name' => $name,'mobile' => $phone,'pincode' => $pincode, 'locality' => $locality, 'address' => $address, 'city' => $city, 'landmark' => $landmark, 'alternate_number' => $alt_number,'status' => 'Active','created_at' => $created_at]);
+  $addressid =DB::getPdo()->lastInsertId();
+  
+ DB::table('ordermaster')->insert(['UserID' => $userid,'ShippingID' => $addressid,'CustomerName' => $name,
+ 'Address' => $address,'MobileNo' => $phone,'Pincode' => $pincode, 'Locality' => $locality,'Landmark' => $landmark,
+ 'City' => $city, 'AlternateNo' => $alt_number, 'PaymentMode' => 'COD','PaymentStatus' => 'Pending',
+ 'TotalAmount'=>$total,'OrderStatus'=>'Pending', 'Order_Date'=>$order_at, 'Delivery_Date'=>$order_at, 
+ 'Created_Date' => $created_at,'Modified_Date' => $created_at,'ReferenceNo' => '123','OrderNo'=>'14']);
+ $orderid =DB::getPdo()->lastInsertId();
+
+         foreach($cart as $id => $details) {
+            $productID=$details['productid'];
+            $quantity=$details['quantity'];
+            $originalrate=$details['originalrate'];
+            $rate=$details['price'];
+            $scrabamount=$details['scrabamount'];
+            $discount=$details['discount'];
+            $subtotal=($details['price'] * $details['quantity']) - $details['scrabamount'];
+            DB::table('ordertrans')->insert(['OrderID' => $orderid,'Status'=>'Pending','ProductID' => $productID,
+            'Quantity' => $quantity,'Rate' => $rate, 'ScrabAmount' => $scrabamount,'Subtotal'=>$subtotal,
+             'DiscountPercent' => $discount, 'OnlinePrice' => $originalrate]);
+
+             if(isset($cart[$productID])) {
+
+              unset($cart[$productID]);
+
+              session()->put('cart', $cart);
+          }
+         }
+
+        
+
+//          $userdata =DB::table('users') ->where('ID',session()->get('id')) ->get();
+      
+//           foreach($userdata as $iuser){
+//             $emailid = $iuser->email;
+//           }
+
+//           $smtp_db = DB::table('smtp')->get();
+
+//         foreach($smtp_db as $items){
+//           $host_detail = $items->host;
+//           $user_name_detail = $items->user_name;
+//           $password_detail = $items->password;
+//           $smtp_secure_detail = $items->smtp_secure;
+//           $port_details = $items->port;
+//           $receiver_address = $items->receiver_address;
+//         }
+
+// // To user
+//         $mail = new PHPMailer(true);
+//         $mail->SMTPDebug = 0;                                       
+//         $mail->isSMTP();                                            
+//         $mail->Host       = $host_detail; 
+//         $mail->SMTPAuth   = true;                                 
+//         $mail->Username   =  $user_name_detail;                   
+//         $mail->Password   = $password_detail;                             
+//         $mail->SMTPSecure = $smtp_secure_detail;                                  
+//         $mail->Port       = $port_details;                                   
+    
+       
+//         // $mail->setFrom($receiver_address, 'Bookings Successfull');
+//         $mail->setFrom($user_name_detail, 'Contact Details');
+//         $mail->addAddress($emailid); 
+//         $mail->AddCC($receiver_address);    
+//         $mail->isHTML(true);                                  
+//         $mail->Subject = 'Xpsbatterystore - Contact Details';
+//         $mail->Body    = '<table style="border: 1px solid #ddd;"><tr style="border: 1px solid #ddd;background-color:#155f91;color:#ffffff;"><th style="padding: 8px;width: 10%;">S.No</th><th style="padding: 8px;width: 30%;">Name</th><th style="padding: 8px;width: 10%;">Quantity</th><th style="padding: 8px;width: 10%;">Price</th><th style="padding: 8px;width: 20%;">Subtotal</th></tr>';
+//         $mail->Body    .= '<tr><td style="padding: 8px;text-align: center;">Total</td><td style="padding: 8px;text-align: center;">'.$ProductModelNo.'</td><td style="padding: 8px;text-align: center;">'.$quantity.'</td><td style="padding: 8px;text-align: center;">'.$quantity.'</td><td style="padding: 8px;text-align: center;">'.$rate.'</td></tr><tr><td style="padding: 8px;text-align: right;" colspan="5">Total</td><td style="padding: 8px;text-align: center;">'.$subtotal.'</td></tr></table><br>Regards,<br><h4 style="background: unset;">Xpsbatterystore.<h4>';
+
+// $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+  
+// if(!$mail->Send()) {
+//   echo 'Message could not be sent.';
+//   echo 'Mailer Error: ' . $mail->ErrorInfo;
+//   exit;
+// }
+     // return view("front_end.testimonials");
+         return response()->json(array('success' => true));
+}
+
+
+public function get_address(Request $request){
+  $id = $request->input('id');  
+
+  $product = DB::table('customer_address')->where('customer_address.id',$id)->get();
+  return response()->json(array('success' => true, 'data' =>  $product));
+}
+
+
+  public function update_address(Request $request){
+  $userid = $request->input('address_id');
+  $name = $request->input("name");
+  $phone = $request->input("phone");
+  $pincode = $request->input("pincode");
+  $locality = $request->input("locality");
+  $address = $request->input("address");
+  $city = $request->input("city");
+  $landmark = $request->input("landmark");
+  $alt_number = $request->input("alt_number");
+
+
+  DB::table('customer_address')->where('customer_address.id',$userid) ->update([
+    'name' => $name,
+    'mobile' => $phone,
+    'pincode' => $pincode,
+    'locality' => $locality,
+    'address' => $address,
+    'city' => $city,
+    'landmark' => $landmark,
+    'alternate_number' => $alt_number
+  ]);
+     return redirect('manage-addresses')->with('success', 'Address Updated Successfully');
+ }
+
+ //  public function del_address(Request $request){
+ //    DB::table('customer_address')->where('id',Session::get('id'))->update([
+ //    'status' => 'Inactive'
+ //  ]);
+ //     return redirect('manage-addresses')->with('success', 'Address Deleted');
+ // }
+
+public function edit_manage_addresses($id){
+$details =  DB::table('customer_address')->where('customer_address.id',$id)->get();
+  
+  return view('front_end.edit-manage-addresses',['details' => $details]);
+}
+
+public function del_address($id){
+$details =  DB::table('customer_address')->where('customer_address.id',$id) ->update([
+    'status' => 'Inactive'
+  ]);
+  
+  return redirect('manage-addresses')->with('success', 'Address Deleted Successfully');
+  //return view('front_end.manage-addresses',['details' => $details]);
+}
+
+
+public function shop($id){
+$details =  DB::table('productmaster')->where('productmaster.ProductID',$id)->get();
+  
+  return view('front_end.shop',['details' => $details]);
+}
+
+public function authenticate(Request $request)
+{
+    $credentials = $request->only('email', 'password');
+
+    if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1])) {
+        // Authentication passed...
+        return redirect()->intended('dashboard');
+    }
+}
+
+}

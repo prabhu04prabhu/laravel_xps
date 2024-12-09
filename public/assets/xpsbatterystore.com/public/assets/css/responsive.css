@@ -1,0 +1,436 @@
+@-ms-viewport
+{
+	width:device-width;
+}
+@-viewport
+{
+	width:device-width;
+}
+@media only screen and (max-width:1200px)
+{
+	img
+	{
+		max-width:100%;
+	}
+	.
+	{
+		width:auto; padding-left:20px; padding-right:20px;
+	}
+	.nav
+	{
+		display:none;
+	}
+	.hide
+	{
+		display: block;
+	}
+	.modal-content
+	{
+		width: 60%;
+	}
+}
+@media only screen and (max-width:1024px)
+{
+	.shop-by-manufacturer ul li
+	{
+		width: 20%;
+	}
+}
+@media only screen and (max-width:960px)
+{
+	.header-top, .header-inner
+	{
+		padding: 0 20px;
+	}
+	.battery-finder, .feautre-products, .section-contact, .section-testimonial, .footer-top, .footer article, .banner-heading, .section-content, .track-order, .similar-product
+	{
+		padding: 25px 20px;
+	}
+	.shop-by-category
+	{
+		padding: 5px;
+	}
+	.shop-by-category ul li, .shop-by-manufacturer ul li, .about-tab ul li, .services-tab ul li, .about-batteries ul li, .shop-by-category-page ul li
+	{
+		width: 33.333333%;
+	}
+	.shop-by-manufacturer
+	{
+		padding:15px 0 0 0px;
+	}
+	.footer article
+	{
+		text-align:center;
+	}
+	.footer article aside
+	{
+		width:auto;
+		margin-right: 0%;
+		float:none;
+		margin-top:15px;
+	}
+	.social-media a
+	{
+		display: inline-block;
+		float: none;
+		margin: 0 4px;
+	}
+	.footer-bottom p
+	{
+		float:none;
+		text-align:center;
+	}
+	.banner-heading h2:after
+	{
+		bottom: -29px;
+		height: 4px;
+	}
+	.banner-nav
+	{
+		padding: 7px 0;
+	}
+	.about-batteries
+	{
+		padding: 15px 0 0 0;
+	}
+	.services, .services article
+	{
+		padding: 10px;
+	}
+	.services h3
+	{
+		margin-left: 10px;
+	}
+	.services-tab
+	{
+		padding: 0px;
+	}
+	.contact-branch
+	{
+		padding: 0 5px 5px 5px;
+	}
+	.product-description
+	{
+		padding: 0 20px 5px 20px;
+	}
+	.login-and-register, .login-and-register fieldset, .login-and-register aside
+	{
+		padding:10px;
+	}
+}
+@media only screen and (max-width:768px)
+{
+	.header-tracker, .header-location, .enquiry-nav, .banner-nav, .header-social-media,  .medias , .contacts, .user-name
+	{
+		display:none;
+	}
+	.header-login{
+    border-left: solid 2px #c4d0cb;
+	}
+	.myaccounts {
+    border-left: solid 2px #c4d0cb;
+	}
+	.battery-finder{ padding: 80px 20px;}
+	.header-social-media
+	{
+		float:left;
+		/*float:right;*/
+	}
+	.battery-finder h2, .battery-finder fieldset, .feautre-offer, .product-show, .services article figure, .services article aside, .career aside, .career fieldset, .contact aside, .contact fieldset, .sidebar, .content, .track-order h2, .track-order fieldset, .products-top h2, .products-top .sort, .product-image, .product-details, .product-details-col-left, .product-details-col-right, .cart-product, .cart-price, .login-and-register fieldset, .login-and-register aside, .my-orders article figure, .my-orders article aside, .my-orders article h3, .my-orders article h2, .notifications article figure, .notifications article aside,
+.wishlist article figure, .wishlist article aside, .testimonials-modal-content fieldset aside
+	{
+		width:auto;
+		float:none;
+	}
+	.battery-finder h2, .track-order h2
+	{
+		font-size: 40px;
+		text-align: left;
+		line-height: 35px;
+		padding: 0;
+	}
+	.battery-finder h2 small
+	{
+		font-size: 24px;
+	}
+	.battery-finder fieldset, .track-order fieldset
+	{
+		border-top: solid 2px #adb8b3;
+		border-left: none;
+		padding-top: 15px;
+		padding-left: 0;
+		margin-top: 10px;
+	}
+	.custom-select
+	{
+		width: 49%;
+	}
+	.battery-finder fieldset input[type=submit]
+	{
+		width: auto;
+	}
+	.shop-by-category h2, .shop-by-manufacturer h2, .section-testimonial h2, .about-batteries h2
+	{
+		margin-top: 15px;
+		margin-bottom: 10px;
+	}
+	.shop-by-category ul li, .shop-by-manufacturer ul li, .about-tab ul li, .services-tab ul li, .about-batteries ul li, .photo-gallery ul li, .testimonials ul li, .contact-branch ul li, .shop-by-category-page ul li
+	{
+		width: 50%;
+	}
+	.product-show, .product-details, .product-details-col-right
+	{
+		padding-left: 0;
+	}
+	.section-contact h2
+	{
+		font-size: 30px;
+    	line-height: 40px;
+	}
+	.section-contact h3 {
+    font-size: 20px;
+	}
+	.about-batteries h2 {
+    font-size: 20px;
+    line-height: 30px;
+	}
+	.accordion {font-size: 17px;}
+	.banner-heading h2 {font-size: 23px;}
+	.dropdownsytyle {font-size: 15px;}
+	.footer-top aside, .cart-product aside, .cart-product aside:first-of-type
+	{
+		width: 100%;
+	}
+	.section-content article
+	{
+		display: block;
+	}
+	.services article:nth-of-type(odd) aside, .services article:nth-of-type(even) aside
+	{
+		padding:120px 0 0 0;
+	}
+	.hidepanel
+	{
+		display:block;
+	}
+	.showpanel
+	{
+		display:none;
+	}
+	.services article figure:after
+	{
+		top: auto;
+		bottom: 0;
+		width: 250px;
+		height: 250px;
+	}
+	.services img
+	{
+		margin: 0px 0;
+	}
+	.services article:nth-of-type(odd) figure:after
+	{
+		right: 0;
+		left: 0;
+		-webkit-transform: translateX(50%) translateY(50%);
+		transform: translateX(0%) translateY(50%);
+		background: rgba(237,26,38,0.8);
+	}
+	.services article:nth-of-type(even) figure:after
+	{
+		right: 0;
+		left: 0;
+		-webkit-transform: translateX(-0%) translateY(50%);
+		transform: translateX(-0%) translateY(50%);
+		background: rgba(0,111,59,0.8);
+	}
+	.contact aside
+	{
+		top: -0px;
+	}
+	.shop-by-category-page h2
+	{
+		margin: 15px 0px;
+	}
+	.track-order fieldset input[type=text]
+	{
+		width: 100%;
+   		margin: 4px 0 8px 0;
+	}
+	.cart-product aside h3
+	{
+		display: block;
+	}
+	.cart-product article, .cart-product aside > div
+	{
+		margin:10px 0;
+	}
+	.login-and-register:before
+	{
+		display:none;
+	}
+	.login-and-register fieldset:first-of-type
+	{
+		border-bottom:solid 2px #006f3b;
+	}
+	.login-and-register fieldset
+	{
+		clear:both;
+		padding:15px 0;
+	}
+	.my-orders article figure, .my-orders article aside, .my-orders article h3, .my-orders article h2, .notifications article figure, .notifications article aside, .wishlist article figure, .wishlist article aside
+	{
+		text-align:center;
+	}
+	.add-testimonial, .franchise-enquiry
+	{
+		position: static;
+	}
+	.modal-content, .testimonials-modal-content, .modal-content-city, .modal-content-franchise
+	{
+		width: 96%;
+	}	
+	.silver-franchise, .gold-franchise
+	{
+		margin:auto;
+		margin-top:50px;
+		float:none;
+	}
+	.kiosk-franchise
+	{
+		margin-top:50px;
+	}
+	.kiosk-franchise .line-arrow
+	{
+		height: 66px;
+	}
+	.silver-franchise .line-arrow
+	{
+		top: -100%;
+		left: 0%;
+		right: 0;
+		height: 66px;
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	.gold-franchise .line-arrow
+	{
+		top: -100%;
+		left: -0%;
+		height: 66px;
+		-webkit-transform: rotate(-0deg);
+		transform: rotate(-0deg);
+	}
+	.franchise-table
+	{
+		overflow:auto;
+	}
+	.quantity-center{
+		margin: auto;
+	}
+	.continue-shop {
+    margin-top: 0;
+    padding: 30px 0;
+    width: auto;
+	}
+	/*.header-name{
+		border-left: unset !important;
+	}*/
+	.contacts{
+		display: none;
+	}
+	.dropdownsytyle {
+    width: 100%;
+	}
+	.contents {
+    width: 95%;
+	}
+	.click {
+    width: 50%;
+	}
+	.finder {
+    width: 70%;
+	}
+}
+@media only screen and (max-width:480px)
+{
+	.header-contact p
+	{
+		display:none;
+	}
+	.header-inner h1 img
+	{
+		height: 60px;
+	}
+	.search
+	{
+		margin: 16.5px 30px 16.5px 0px;
+	}
+	.myaccount
+	{
+		margin: 17.5px 0 17px 0px;
+	}
+	.header-cart {
+	    padding: 15px;
+	    margin-left: 0;
+	    margin-right: 80px;
+	}
+	.nav-shrink .header-cart {
+	    margin-right: 100px;
+	}
+	.navbar, .isStuck .navbar
+	{
+		padding: 30px 20px;
+	}
+	.isStuck .search
+	{
+		margin: 16.5px 30px 16.5px 0;
+	}
+	.search input[type=search]
+	{
+		right: 0;
+	}
+	.search:hover input[type=search]
+	{
+		width: 300px;
+	}
+	.myaccount fieldset
+	{
+		right: -100px;
+	}
+	.custom-select
+	{
+		width: 100%;
+		margin:0 0 2px 0;
+	}
+	.photo-gallery ul li, .testimonials ul li, .form-split, .contact-branch ul li, .manufacturer ul li
+	{
+		width: 100%;
+	}
+	.product-item .item
+	{
+		width: 50%;
+		/* width: 100%;*/
+	}
+	.login-and-register figure
+	{
+		width: auto;
+		margin-top: 10px;
+		display:block;
+		text-align:center;
+	}
+	.login-and-register figure img
+	{
+		width: 65%;
+	}
+}
+@media only screen and (max-width:320px)
+{
+	.shop-by-category ul li, .shop-by-manufacturer ul li, .about-tab ul li, .services-tab ul li, .about-batteries ul li, .shop-by-category-page ul li, .product-item .item
+	{
+		width: 100%;
+	}
+}
+.header-name, .log{
+	border-left: solid 2px #c4d0cb;
+}

@@ -1,0 +1,103 @@
+.price-range-block
+{
+    background: #e6efea;
+    padding: 20px;
+    border-radius: 0px 0px 2px 2px;
+	margin-top:15px;
+}
+.price-range-block h3
+{
+	margin-top:0px;
+}
+.sliderText
+{
+    width:40%;
+    margin-bottom:30px;
+    border-bottom: 2px solid red;
+    padding: 10px 0 10px 0px;
+    font-weight:bold;
+}
+.ui-widget-content, .ui-widget.ui-widget-content
+{
+    border: none;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active
+{
+    border: none;
+    background: #ed1c24;
+    border-radius: 50%;
+}
+.ui-slider-horizontal .ui-slider-handle
+{
+    top: -10px;
+}
+.ui-slider .ui-slider-handle
+{
+    width: 30px;
+    height: 30px;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus
+{
+    background: #006f3b;
+}
+.ui-slider-horizontal
+{
+    height: .6em;
+}.ui-slider-horizontal
+{
+    width:100%;
+    margin-top: 10px;
+    margin-left: -5px;
+}
+.ui-widget-header
+{
+    background: #006f3b;
+}
+.price-range-search
+{
+    width:40.5%; 
+    background-color: #f9f9f9; 
+    border: 1px solid #6e6666;
+    min-width: 40%;
+    display: inline-block;
+    height: 32px;
+    border-radius: 5px;
+    float: left;
+    margin-bottom:20px;
+    font-size:16px;
+}
+.price-range-field
+{
+    background: none;
+    border: none;
+    color: black;
+    font-family: 'Muli', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    width: auto;
+}
+.indian-rupee
+{
+	position:relative;
+}
+.indian-rupee:before
+{
+    content:"₹";
+}
+.price-range-block input::-webkit-outer-spin-button,
+.price-range-block input::-webkit-inner-spin-button
+{
+	-webkit-appearance: none;
+	margin: 0;
+}
+.price-range-block input[type=number]
+{
+	-moz-appearance: textfield;
+}
+.search-results-block
+{
+    position: relative;
+    display: block;
+    clear: both;
+}
+
